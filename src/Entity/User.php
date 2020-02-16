@@ -189,6 +189,14 @@
         }
 
         /**
+         * @return string
+         */
+        public function __toString(): string
+        {
+            return (string) $this->getEmail();
+        }
+
+        /**
          * @return int|null
          */
         public function getId(): ?int
