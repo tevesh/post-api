@@ -400,9 +400,9 @@
         }
 
         /**
-         * @param string $confirmationToken
+         * @param string|null $confirmationToken
          */
-        public function setConfirmationToken(string $confirmationToken): void
+        public function setConfirmationToken(?string $confirmationToken): void
         {
             $this->confirmationToken = $confirmationToken;
         }
