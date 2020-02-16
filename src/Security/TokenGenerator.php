@@ -20,7 +20,7 @@
             try {
                 return self::ALPHABET[random_int(0, strlen(self::ALPHABET) - 1)];
             } catch (Exception $exception) {
-                return $this->getRandomLetterFromAlphabet();
+                $this->getRandomLetterFromAlphabet();
             }
         }
 
