@@ -3,7 +3,6 @@
     namespace App\Security;
 
     use App\Entity\User;
-    use Symfony\Component\Security\Core\Exception\AccountStatusException;
     use Symfony\Component\Security\Core\Exception\DisabledException;
     use Symfony\Component\Security\Core\User\UserCheckerInterface;
     use Symfony\Component\Security\Core\User\UserInterface;
@@ -29,7 +28,7 @@
         /**
          * Checks the user account after authentication.
          *
-         * @throws AccountStatusException
+         * @param UserInterface $user
          */
         public function checkPostAuth(UserInterface $user)
         {

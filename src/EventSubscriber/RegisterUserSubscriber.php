@@ -8,8 +8,6 @@
     use App\Entity\User;
     use App\Security\TokenGenerator;
     use App\Service\MailerService;
-    use Swift_Mailer;
-    use Swift_Message;
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpKernel\Event\ViewEvent;
