@@ -8,6 +8,7 @@
     use App\Entity\User;
     use App\Security\TokenGenerator;
     use Swift_Mailer;
+    use Swift_Message;
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -60,7 +61,13 @@
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
             $user->setConfirmationToken($this->tokenGenerator->getRandomSecureToken());
 
-//            $this->mailer->send();
+            $message = new Swift_Message();
+            $message->setSubject('Confirm your account');
+            $message->setBody("Api Platform confirmation token: {$user->getConfirmationToken()}");
+            $message->setFrom(getenv('MAILER_USER'));
+            $message->setTo($user->getEmail());
+
+            $result = $this->mailer->send($message);
         }
 
     }

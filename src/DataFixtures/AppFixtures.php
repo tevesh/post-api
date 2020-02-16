@@ -220,6 +220,7 @@
                 printf("Set user enabled {$i}\n");
                 $user->setEnabled((bool)random_int(0, 1));
                 if (!$user->isEnabled()) {
+                    printf("Set confirmation token {$i}\n");
                     $user->setConfirmationToken($this->tokenGenerator->getRandomSecureToken());
                 }
                 printf("Persist user {$i}\n");
