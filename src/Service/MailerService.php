@@ -4,6 +4,8 @@
 
     use Swift_Mailer;
     use Swift_Message;
+    use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+    use Symfony\Component\Routing\RouterInterface;
     use Symfony\Component\Security\Core\User\UserInterface;
     use Symfony\Contracts\Translation\TranslatorInterface;
     use Twig\Environment;
@@ -29,6 +31,10 @@
          * @var TranslatorInterface
          */
         private $translator;
+        /**
+         * @var RouterInterface
+         */
+        private $router;
 
         /**
          * MailerService constructor.
@@ -36,12 +42,14 @@
          * @param Swift_Mailer $mailer
          * @param Environment $environment
          * @param TranslatorInterface $translator
+         * @param RouterInterface $router
          */
-        public function __construct(Swift_Mailer $mailer, Environment $environment, TranslatorInterface $translator)
+        public function __construct(Swift_Mailer $mailer, Environment $environment, TranslatorInterface $translator, RouterInterface $router)
         {
             $this->mailer = $mailer;
             $this->environment = $environment;
             $this->translator = $translator;
+            $this->router = $router;
         }
 
         /**
@@ -53,10 +61,13 @@
          */
         public function sendConfirmationEmail(UserInterface $user): void
         {
+            $confirmationToken = $user->getConfirmationToken();
             $params = [
-                'user'           => $user,
-                'welcomeMessage' => sprintf($this->translator->trans('user.email.confirmation.welcome'), $user->getUsername()),
-                'bodyMessage'    => sprintf($this->translator->trans('user.email.confirmation.body'), $user->getConfirmationToken()),
+                'user'             => $user,
+                'welcomeMessage'   => sprintf($this->translator->trans('user.email.confirmation.welcome'), $user->getUsername()),
+                'bodyMessage'      => sprintf($this->translator->trans('user.email.confirmation.body'), $confirmationToken),
+                'confirmationLink' => $this->router->generate('confirm_user', ['confirmationToken' => $confirmationToken], UrlGeneratorInterface::ABSOLUTE_URL),
+                'linkMessage'      => sprintf($this->translator->trans('user.email.confirmation.link')),
             ];
 
             $body = $this->environment->render('email/confirmation.html.twig', $params);

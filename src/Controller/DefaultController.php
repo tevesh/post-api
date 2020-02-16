@@ -1,11 +1,9 @@
 <?php
 
-
 namespace App\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -19,14 +17,11 @@ class DefaultController extends AbstractController
 {
     /**
      * @Route("/", name="default_index")
-     * @return JsonResponse
+     *
+     * @return Response
      */
-    public function index(): JsonResponse
+    public function index(): Response
     {
-        $response = [
-            'action' => 'index',
-        ];
-
-        return $this->json($response);
+        return $this->render('base.html.twig');
     }
 }
