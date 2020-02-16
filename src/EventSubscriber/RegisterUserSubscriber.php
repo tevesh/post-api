@@ -7,6 +7,7 @@
     use ApiPlatform\Core\EventListener\EventPriorities;
     use App\Entity\User;
     use App\Security\TokenGenerator;
+    use Swift_Mailer;
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -25,10 +26,14 @@
         /** @var TokenGenerator $tokenGenerator */
         private $tokenGenerator;
 
-        public function __construct(UserPasswordEncoderInterface $passwordEncoder, TokenGenerator $tokenGenerator)
+        /** @var Swift_Mailer $mailer */
+        private $mailer;
+
+        public function __construct(UserPasswordEncoderInterface $passwordEncoder, TokenGenerator $tokenGenerator, Swift_Mailer $mailer)
         {
             $this->passwordEncoder = $passwordEncoder;
             $this->tokenGenerator = $tokenGenerator;
+            $this->mailer = $mailer;
         }
 
         /**
@@ -48,12 +53,14 @@
         {
             $user = $event->getControllerResult();
             $method = $event->getRequest()->getMethod();
-            if (!$user instanceof User || !in_array($method, [Request::METHOD_POST], true)) {
+            if (!$user instanceof User || $method !== Request::METHOD_POST) {
                 return;
             }
 
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
             $user->setConfirmationToken($this->tokenGenerator->getRandomSecureToken());
+
+//            $this->mailer->send();
         }
 
     }

@@ -5,6 +5,25 @@ networks:
     external: true
 
 services:
+  fakemail:
+    command:
+      - bin/maildev
+      - --web
+      - "80"
+      - --smtp
+      - "1025"
+    container_name: fakemail
+    image: djfarrelly/maildev
+    labels:
+      traefik.enable: true
+      traefik.docker.network: webnetwork
+      traefik.http.routers.fakemail.rule: Host(`post-fakemail.dev.it`)
+      traefik.http.services.fakemail.loadbalancer.server.port: 80
+    networks:
+      - webnetwork
+      - default
+    ports:
+      - 1025:25
   nginx:
     container_name: nginx
     command: [nginx-debug, '-g', 'daemon off;']
