@@ -7,7 +7,10 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-bg {{ app.session.flashbag.peek('success')|length > 0 ? '' : 'mb-5' }}"></nav>
+{% endblock navbar %}
+{% block body %}{% endblock body %}
+{% block javascripts %}{% endblock javascripts %}
 </body>
 </html>
