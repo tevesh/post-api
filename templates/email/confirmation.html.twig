@@ -1,0 +1,7 @@
+{% extends 'email/base-email.html.twig' %}
+{% import 'components/table.html.twig' as components %}
+
+{% block tableContent %}
+    {{ components.tableRowWelcomeMessage(welcomeMessage) }}
+    {{ components.tableRowBodyMessage(bodyMessage) }}
+{% endblock tableContent %}

@@ -1,0 +1,53 @@
+{% macro tableRowWelcomeMessage(welcomeMessage) %}
+    <tr>
+        <td class="column" width="600" colspan="2" align="left" valign="top"
+            style="padding: 10px 20px 0px 20px; font-family: arial,sans-serif; font-size: 14px; line-height: 18px; color: #161D23;">
+            <h1>{{ welcomeMessage }}</h1>
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro tableRowBodyMessage(bodyMessage) %}
+    <tr>
+        <td class="column" width="600" colspan="2" align="left" valign="top"
+            style="padding: 0px 20px 0px 20px; font-family: arial,sans-serif; font-size: 14px; line-height: 18px; color: #808080;">
+            <p>{{ bodyMessage | raw }}</p>
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro tableRowButton(confirmationLink, linkMessage) %}
+    <tr>
+        <td class="column" width="600" colspan="2" align="left" valign="top"
+            style="padding: 20px 20px 10px 20px; font-family: arial,sans-serif; font-size: 14px; line-height: 18px; color: #808080;">
+            <a href="{{ confirmationLink }}" class="mail-link" target="_blank"
+               rel="nofollow noreferrer"
+               style="background-color: #F17761; color: #F6F6E6; padding: 1em 1.5em; text-decoration: none; text-transform: uppercase;">{{ linkMessage }}</a>
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro tableRowLogo(imageId, altText) %}
+    {% if altText is null or altTest != '' %}
+        {% set altText = "Logo" %}
+    {% endif %}
+    <tr>
+        <td class="column" width="600" colspan="2" align="left" valign="top"
+            style="padding: 10px 20px 10px 20px; font-family: arial,sans-serif; font-size: 14px; line-height: 18px; color: #000001;">
+            <div class="pattern">
+                <img src="{{ imageId }}" alt="{{ altText }}}"
+                     width="151" height="104" style="display: block; border: 0;"/>
+            </div>
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro tableRowContact(contactMessage, contactEmail) %}
+    <tr>
+        <td class="column" width="600" colspan="2" align="left" valign="bottom"
+            style="padding: 20px 20px 20px 20px; font-family: arial,sans-serif; font-size: 14px; line-height: 18px; color: #808080;">
+            <p>{{ contactMessage | raw }} <span><a href="mailto:{{ contactEmail }}"
+                                                   rel="nofollow noreferrer">{{ contactEmail }}</a></span></p>
+        </td>
+    </tr>
+{% endmacro %}

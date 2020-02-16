@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block style %}
+    {{ parent() }}
+    <style>
+        a.mail-link {
+            background-color: #F17761;
+            color: #F6F6E6;
+            padding: 1em 1.5em;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        /* Column Drop Layout Pattern CSS */
+        @media only screen and (max-width: 450px) {
+            td[class="column"] {
+                display: block;
+                width: 100%;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+        }
+
+        @media only screen and (max-width: 599px) {
+            /* Image Center Crop Pattern CSS */
+            div[class="pattern"] {
+                position: relative;
+                overflow: hidden;
+                width: 151px;
+                height: 104px;
+            }
+
+            div[class="pattern"] img {
+                position: absolute;
+                top: 0;
+            }
+        }
+    </style>
+{% endblock style %}
+{% block body %}
+    <table width="100%" border="0" cellspacing="0" cellpadding="16" bgcolor="#F6F6E6">
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0">
+                    {% block tableContent %}{% endblock tableContent %}
+                </table>
+            </td>
+        </tr>
+    </table>
+{% endblock body %}
