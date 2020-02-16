@@ -1,0 +1,37 @@
+App\Entity\User:
+  collectionOperations:
+    get:
+      method: 'GET'
+      normalization_context:
+        groups:
+          - 'get'
+    post:
+      denormalization_context:
+        groups:
+          - 'post'
+      normalization_context:
+        groups:
+          - 'get'
+  itemOperations:
+    get:
+      access_control: "is_granted('IS_AUTHENTICATED_FULLY')"
+      method: 'GET'
+      normalization_context:
+        groups:
+          - 'get'
+    put:
+      access_control: "is_granted('IS_AUTHENTICATED_FULLY') and object == user"
+      denormalization_context:
+        groups:
+          - 'put'
+      normalization_context:
+        groups:
+          - 'get'
+    put-reset-password:
+      access_control: "is_granted('IS_AUTHENTICATED_FULLY') and object == user"
+      controller: App\Controller\ResetPasswordAction
+      denormalization_context:
+        groups:
+          - 'put-reset-password'
+      method: 'PUT'
+      path: '/users/{id}/reset-password'

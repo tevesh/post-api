@@ -1,0 +1,689 @@
+{
+	"info": {
+		"_postman_id": "867c5c6e-63cf-4a02-a5a2-aac979f312ca",
+		"name": "udemy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "post-api",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "User - Create token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a0dc9687-75dc-4c02-b183-8a8a574d5253",
+										"exec": [
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "6132ba4e-fcdf-48e4-99bf-66d5afbcee6b",
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"if(!jsonData.error){",
+											"    postman.setEnvironmentVariable(\"token\", jsonData.token);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\": \"{{currentUsername}}\",\n\t\"password\": \"{{currentPassword}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{domain_api}}/login_check",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain_api}}"
+									],
+									"path": [
+										"login_check"
+									]
+								},
+								"description": "Get a JWT token with username and password"
+							},
+							"response": []
+						},
+						{
+							"name": "User - Create",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "dc1371fb-5b19-4191-a6e9-7d4cedfd132e",
+										"exec": [
+											"var jsonData = JSON.parse(pm.request.body);",
+											"postman.setEnvironmentVariable(\"currentUsername\", jsonData.username);",
+											"postman.setEnvironmentVariable(\"currentEmail\", jsonData.email);",
+											"postman.setEnvironmentVariable(\"currentPassword\", jsonData.password);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "0e96bd68-e2e0-492e-a443-7cfa67dc1b22",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Han Solo\",\n\t\"username\": \"HanSolo\",\n\t\"password\": \"Test123!\",\n\t\"retypePassword\": \"Test123!\",\n\t\"email\": \"hansolo@email.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{domain_api}}/users",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain_api}}"
+									],
+									"path": [
+										"users"
+									]
+								},
+								"description": "Create a new user"
+							},
+							"response": []
+						},
+						{
+							"name": "User - Get by id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "dc1371fb-5b19-4191-a6e9-7d4cedfd132e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "0e96bd68-e2e0-492e-a443-7cfa67dc1b22",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{domain_api}}/users/13",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain_api}}"
+									],
+									"path": [
+										"users",
+										"13"
+									]
+								},
+								"description": "Get a single user by id"
+							},
+							"response": []
+						},
+						{
+							"name": "User - Reset Password",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "8dd9781a-eb20-4aac-b946-b062c03d4634",
+										"exec": [
+											"var jsonData = JSON.parse(pm.request.body);",
+											"postman.setEnvironmentVariable(\"currentPassword\", jsonData.password);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"newPassword\": \"BubuBubu1\",\n\t\"newRetypePassword\": \"BubuBubu1\",\n\t\"oldPassword\": \"{{currentPassword}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{domain_api}}/users/28/reset-password",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain_api}}"
+									],
+									"path": [
+										"users",
+										"28",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "BlogPost",
+					"item": [
+						{
+							"name": "BlogPost- Get all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{domain}}/blog",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"blog"
+									]
+								},
+								"description": "Get all blog posts objects"
+							},
+							"response": []
+						},
+						{
+							"name": "Blog Post - Get all paginated",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{domain}}/blog/1?limit=20",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"blog",
+										"1"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "20"
+										}
+									]
+								},
+								"description": "Get all blog with page and limit parameters"
+							},
+							"response": []
+						},
+						{
+							"name": "Blog Post - Create",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "dc1371fb-5b19-4191-a6e9-7d4cedfd132e",
+										"exec": [
+											"const moment = require('moment');",
+											"pm.globals.set(\"publicationDate\", moment().format(\"YYYY-MM-DD H:m:s\"));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "0e96bd68-e2e0-492e-a443-7cfa67dc1b22",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\": \"Test title from api\",\n\t\"published\": \"{{publicationDate}}\",\n\t\"content\": \"test content from api\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{domain_api}}/blog_posts",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain_api}}"
+									],
+									"path": [
+										"blog_posts"
+									]
+								},
+								"description": "Create a new blog post"
+							},
+							"response": []
+						},
+						{
+							"name": "Blog Post - Ge by id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "dc1371fb-5b19-4191-a6e9-7d4cedfd132e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "0e96bd68-e2e0-492e-a443-7cfa67dc1b22",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{protocol}}://{{domain_api}}/blog_posts/11",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain_api}}"
+									],
+									"path": [
+										"blog_posts",
+										"11"
+									]
+								},
+								"description": "Get a blog post by his id's"
+							},
+							"response": []
+						},
+						{
+							"name": "Blog Post - Update by id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "dc1371fb-5b19-4191-a6e9-7d4cedfd132e",
+										"exec": [
+											"const moment = require('moment');",
+											"pm.globals.set(\"publicationDate\", moment().format(\"YYYY-MM-DD H:m:s\"));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "0e96bd68-e2e0-492e-a443-7cfa67dc1b22",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\": \"Test title from api\",\n\t\"published\": \"{{publicationDate}}\",\n\t\"content\": \"test content from api(modified 4)\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{domain_api}}/blog_posts/102",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain_api}}"
+									],
+									"path": [
+										"blog_posts",
+										"102"
+									]
+								},
+								"description": "Update a blog post already created"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Comment",
+					"item": [
+						{
+							"name": "User - Get by id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{domain_api}}/comments/31",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain_api}}"
+									],
+									"path": [
+										"comments",
+										"31"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Comment - Get all by blog post id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "dc1371fb-5b19-4191-a6e9-7d4cedfd132e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "0e96bd68-e2e0-492e-a443-7cfa67dc1b22",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{protocol}}://{{domain_api}}/blog_posts/10/comments",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain_api}}"
+									],
+									"path": [
+										"blog_posts",
+										"10",
+										"comments"
+									]
+								},
+								"description": "Get all comments from a blog post by his id's"
+							},
+							"response": []
+						},
+						{
+							"name": "Comment - Create",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "dc1371fb-5b19-4191-a6e9-7d4cedfd132e",
+										"exec": [
+											"const moment = require('moment');",
+											"pm.globals.set(\"publicationDate\", moment().format(\"YYYY-MM-DD H:m:s\"));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "0e96bd68-e2e0-492e-a443-7cfa67dc1b22",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"content\": \"test content comment from api\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{domain_api}}/comments",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain_api}}"
+									],
+									"path": [
+										"comments"
+									]
+								},
+								"description": "Create a new comment for a blog post"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
