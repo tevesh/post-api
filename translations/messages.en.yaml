@@ -5,3 +5,6 @@ user:
       link: 'Click here to confirm you account'
       subject: 'Confirm your account'
       welcome: 'Hello %s!'
+  messages:
+    confirmation:
+      success: 'You have confirmed your account'

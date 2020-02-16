@@ -21,7 +21,7 @@
             }
 
             if (!$user->isEnabled()) {
-                throw new DisabledException();
+                throw new DisabledException(sprintf('User %s is disabled', $user->getEmail()));
             }
         }
 

@@ -41,7 +41,7 @@
             $user = $this->repository->findOneBy(['confirmationToken' => $confirmationToken]);
 
             if (!$user) {
-                throw new NotFoundHttpException();
+                throw new NotFoundHttpException(sprintf('Cannot find confirmation token %s', $confirmationToken));
             }
 
             $user->setEnabled(true);
