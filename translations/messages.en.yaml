@@ -1,0 +1,6 @@
+user:
+  email:
+    confirmation:
+      welcome: 'Hello %s!'
+      body: 'Api Platform confirmation token: %s'
+      subject: 'Confirm your account'
