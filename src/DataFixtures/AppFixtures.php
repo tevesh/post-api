@@ -8,7 +8,7 @@
     use App\Security\TokenGenerator;
     use App\Service\TextManipulationService;
     use Doctrine\Bundle\FixturesBundle\Fixture;
-    use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\Persistence\ObjectManager;
     use Exception;
     use Faker\Factory;
     use Faker\Generator;
