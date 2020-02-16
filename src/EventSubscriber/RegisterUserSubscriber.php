@@ -7,6 +7,7 @@
     use ApiPlatform\Core\EventListener\EventPriorities;
     use App\Entity\User;
     use App\Security\TokenGenerator;
+    use App\Service\MailerService;
     use Swift_Mailer;
     use Swift_Message;
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -14,6 +15,9 @@
     use Symfony\Component\HttpKernel\Event\ViewEvent;
     use Symfony\Component\HttpKernel\KernelEvents;
     use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+    use Twig\Error\LoaderError;
+    use Twig\Error\RuntimeError;
+    use Twig\Error\SyntaxError;
 
     /**
      * Class RegisterUserSubscriber
@@ -27,10 +31,10 @@
         /** @var TokenGenerator $tokenGenerator */
         private $tokenGenerator;
 
-        /** @var Swift_Mailer $mailer */
+        /** @var MailerService $mailer */
         private $mailer;
 
-        public function __construct(UserPasswordEncoderInterface $passwordEncoder, TokenGenerator $tokenGenerator, Swift_Mailer $mailer)
+        public function __construct(UserPasswordEncoderInterface $passwordEncoder, TokenGenerator $tokenGenerator, MailerService $mailer)
         {
             $this->passwordEncoder = $passwordEncoder;
             $this->tokenGenerator = $tokenGenerator;
@@ -49,6 +53,10 @@
 
         /**
          * @param ViewEvent $event
+         *
+         * @throws LoaderError
+         * @throws RuntimeError
+         * @throws SyntaxError
          */
         public function registerUser(ViewEvent $event): void
         {
@@ -61,13 +69,7 @@
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
             $user->setConfirmationToken($this->tokenGenerator->getRandomSecureToken());
 
-            $message = new Swift_Message();
-            $message->setSubject('Confirm your account');
-            $message->setBody("Api Platform confirmation token: {$user->getConfirmationToken()}");
-            $message->setFrom(getenv('MAILER_USER'));
-            $message->setTo($user->getEmail());
-
-            $result = $this->mailer->send($message);
+            $this->mailer->sendConfirmationEmail($user);
         }
 
     }
