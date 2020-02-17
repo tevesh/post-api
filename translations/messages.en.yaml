@@ -8,3 +8,6 @@ user:
   messages:
     confirmation:
       success: 'You have confirmed your account'
+form:
+  label:
+    file: 'Upload file'

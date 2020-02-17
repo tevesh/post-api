@@ -5,6 +5,7 @@
 
     use ApiPlatform\Core\Validator\Exception\ValidationException;
     use App\Entity\Image;
+    use App\Form\ImageType;
     use Doctrine\ORM\EntityManagerInterface;
     use Exception;
     use Symfony\Component\Form\FormFactoryInterface;
@@ -55,7 +56,7 @@
         public function __invoke(Request $request): Image
         {
             $image = new Image();
-            $form = $this->formFactory->create(null, $image);
+            $form = $this->formFactory->create(ImageType::class, $image);
             $form->handleRequest($request);
             // Validation is defined into entity class and form type
             if ($form->isSubmitted() && $form->isValid()) {
