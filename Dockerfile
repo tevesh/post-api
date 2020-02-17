@@ -23,22 +23,26 @@ RUN apt update -q && apt upgrade -yqq && apt install -yqq --no-install-recommend
         gnupg \
         libfcgi0ldbl \
         libfreetype6-dev \
+        libfreetype6-dev \
         libicu-dev \
+        libjpeg-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
         libpng-dev \
         libpq-dev \
-        libzip-dev \
         libssl-dev \
+        libzip-dev \
         unzip \
         vim \
         wget \
         zip \
         zlib1g-dev \
     && pecl install apcu-5.1.18 xdebug-2.9.1 \
+    && docker-php-ext-configure gd \
     && docker-php-ext-enable apcu xdebug \
     && docker-php-ext-install -j$(nproc) \
         bcmath \
+        gd \
         intl \
         mysqli \
         pdo_mysql \
