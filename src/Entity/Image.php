@@ -1,27 +1,17 @@
 <?php
 
     namespace App\Entity;
+    use AppBundle\Entity\Base\BaseEntity;
     use Doctrine\ORM\Mapping as ORM;
+    use Symfony\Component\Validator\Constraints as Assert;
     use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
     /**
-     * Class Image
-     * @package App\Entity
-     *
      * @ORM\Entity()
      * @Vich\Uploadable()
      */
-    class Image
+    class Image extends BaseEntity
     {
-        /**
-         * @ORM\Id()
-         * @ORM\GeneratedValue()
-         * @ORM\Column(type="integer")
-         *
-         * @var int $id
-         */
-        private $id;
-
         /**
          * @ORM\Column(type="string", nullable=true)
          *
@@ -30,19 +20,12 @@
         private $url;
 
         // Virtual fields
-        /**
-         * @Vich\UploadableField(mapping="images", fileNameProperty="url")
-         * @var
-         */
-        private $file;
 
         /**
-         * @return int
+         * @Vich\UploadableField(mapping="images", fileNameProperty="url")
+         * @Assert\NotNull()
          */
-        public function getId(): int
-        {
-            return $this->id;
-        }
+        private $file;
 
         /**
          * @return string|null
