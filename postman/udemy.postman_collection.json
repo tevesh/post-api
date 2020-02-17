@@ -73,6 +73,68 @@
 							"response": []
 						},
 						{
+							"name": "User - Confirm",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a0dc9687-75dc-4c02-b183-8a8a574d5253",
+										"exec": [
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "6132ba4e-fcdf-48e4-99bf-66d5afbcee6b",
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"if(!jsonData.error){",
+											"    postman.setEnvironmentVariable(\"token\", jsonData.token);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"confirmationToken\": \"lZbL6foO0cJhvwnfmNpCkRr6ZdlY2b\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{domain_api}}/users/confirm",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain_api}}"
+									],
+									"path": [
+										"users",
+										"confirm"
+									]
+								},
+								"description": "Get a JWT token with username and password"
+							},
+							"response": []
+						},
+						{
 							"name": "User - Create",
 							"event": [
 								{
@@ -215,7 +277,7 @@
 										"id": "8dd9781a-eb20-4aac-b946-b062c03d4634",
 										"exec": [
 											"var jsonData = JSON.parse(pm.request.body);",
-											"postman.setEnvironmentVariable(\"currentPassword\", jsonData.password);"
+											"postman.setEnvironmentVariable(\"currentPassword\", jsonData.newPassword);"
 										],
 										"type": "text/javascript"
 									}
@@ -243,7 +305,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"newPassword\": \"BubuBubu1\",\n\t\"newRetypePassword\": \"BubuBubu1\",\n\t\"oldPassword\": \"{{currentPassword}}\"\n}",
+									"raw": "{\n\t\"newPassword\": \"{{currentPassword}}\",\n\t\"newRetypePassword\": \"{{currentPassword}}\",\n\t\"oldPassword\": \"{{currentPassword}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -251,14 +313,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{protocol}}://{{domain_api}}/users/28/reset-password",
+									"raw": "{{protocol}}://{{domain_api}}/users/12/reset-password",
 									"protocol": "{{protocol}}",
 									"host": [
 										"{{domain_api}}"
 									],
 									"path": [
 										"users",
-										"28",
+										"12",
 										"reset-password"
 									]
 								}
@@ -674,6 +736,101 @@
 									]
 								},
 								"description": "Create a new comment for a blog post"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Image",
+					"item": [
+						{
+							"name": "Upload image",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a4e9058e-f11c-4c5d-b85a-7d06de94985e",
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"if(!jsonData.error){",
+											"    postman.setEnvironmentVariable(\"currentImageUrl\", jsonData.url);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/flandoni/Desktop/istockphoto-1081665644-1024x1024.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}://{{domain_api}}/images",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain_api}}"
+									],
+									"path": [
+										"images"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List images",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a4e9058e-f11c-4c5d-b85a-7d06de94985e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{domain_api}}/images",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain_api}}"
+									],
+									"path": [
+										"images"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Image",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{domain}}{{currentImageUrl}}",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{domain}}{{currentImageUrl}}"
+									]
+								}
 							},
 							"response": []
 						}
