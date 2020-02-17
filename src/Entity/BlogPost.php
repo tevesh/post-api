@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
+use App\Entity\Interfaces\AuthorEntityInterface;
+use App\Entity\Interfaces\PublishedDateEntityInterface;
+use AppBundle\Entity\Base\BaseEntity;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BlogPostRepository")
  */
-class BlogPost implements AuthorEntityInterface, PublishedDateEntityInterface
+class BlogPost extends BaseEntity implements AuthorEntityInterface, PublishedDateEntityInterface
 {
     public const ORDER_ASCENDANT = 'ASC';
     public const ORDER_DESCENDANT = 'DESC';
@@ -26,7 +30,7 @@ class BlogPost implements AuthorEntityInterface, PublishedDateEntityInterface
      *
      * @Groups({"get-blog-post-with-author"})
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -81,19 +85,14 @@ class BlogPost implements AuthorEntityInterface, PublishedDateEntityInterface
     private $comments;
 
     /**
-     * User constructor.
+     * BlogPost constructor.
+     *
+     * @throws Exception
      */
     public function __construct()
     {
+        BaseEntity::__construct();
         $this->comments = new ArrayCollection();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

@@ -2,6 +2,9 @@
 
     namespace App\Entity;
 
+    use App\Entity\Interfaces\AuthorEntityInterface;
+    use App\Entity\Interfaces\PublishedDateEntityInterface;
+    use AppBundle\Entity\Base\BaseEntity;
     use DateTimeInterface;
     use Doctrine\ORM\Mapping as ORM;
     use Symfony\Component\Security\Core\User\UserInterface;
@@ -11,7 +14,7 @@
     /**
      * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
      */
-    class Comment implements AuthorEntityInterface, PublishedDateEntityInterface
+    class Comment extends BaseEntity implements AuthorEntityInterface, PublishedDateEntityInterface
     {
         /**
          * @ORM\Id()
@@ -20,7 +23,7 @@
          *
          * @Groups({"get-comment-with-author"})
          */
-        private $id;
+        protected  $id;
 
         /**
          * @ORM\Column(type="text")
@@ -53,14 +56,6 @@
          * @Groups({"post"})
          */
         private $blogPost;
-
-        /**
-         * @return int|null
-         */
-        public function getId(): ?int
-        {
-            return $this->id;
-        }
 
         /**
          * @return string|null

@@ -2,9 +2,11 @@
 
     namespace App\Entity;
 
+    use AppBundle\Entity\Base\BaseEntity;
     use Doctrine\Common\Collections\ArrayCollection;
     use Doctrine\Common\Collections\Collection;
     use Doctrine\ORM\Mapping as ORM;
+    use Exception;
     use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     use Symfony\Component\Security\Core\User\UserInterface;
     use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
@@ -16,7 +18,7 @@
      * @UniqueEntity("username")
      * @UniqueEntity("email")
      */
-    class User implements UserInterface
+    class User extends BaseEntity implements UserInterface
     {
         public const ROLE_ADMIN = 'ROLE_ADMIN';
         public const ROLE_COMMENTATOR = 'ROLE_COMMENTATOR';
@@ -27,13 +29,15 @@
         public const DEFAULT_ROLES = [self::ROLE_COMMENTATOR];
 
         /**
-         * @ORM\Id()
-         * @ORM\GeneratedValue()
+         * @ORM\Id
          * @ORM\Column(type="integer")
+         * @ORM\GeneratedValue(strategy="AUTO")
          *
          * @Groups({"get"})
+         *
+         * @var int $id
          */
-        private $id;
+        protected $id;
 
         /**
          * @ORM\Column(type="string", length=255)
@@ -178,14 +182,16 @@
 
         /**
          * User constructor.
+         *
+         * @throws Exception
          */
         public function __construct()
         {
+            BaseEntity::__construct();
             $this->blogPosts = new ArrayCollection();
             $this->comments = new ArrayCollection();
             $this->roles = self::DEFAULT_ROLES;
             $this->enabled = false;
-            $this->confirmationToken = null;
         }
 
         /**
@@ -194,14 +200,6 @@
         public function __toString(): string
         {
             return (string) $this->getEmail();
-        }
-
-        /**
-         * @return int|null
-         */
-        public function getId(): ?int
-        {
-            return $this->id;
         }
 
         /**
