@@ -1,6 +1,6 @@
 <?php
 
-    namespace AppBundle\Entity\Base;
+    namespace App\Entity;
 
     use App\Entity\Interfaces\BaseEntityInterface;
     use DateTime;

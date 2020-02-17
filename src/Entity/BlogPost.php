@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Entity\Interfaces\AuthorEntityInterface;
 use App\Entity\Interfaces\PublishedDateEntityInterface;
-use AppBundle\Entity\Base\BaseEntity;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

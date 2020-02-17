@@ -1,7 +1,7 @@
 <?php
 
     namespace App\Entity;
-    use AppBundle\Entity\Base\BaseEntity;
+
     use Doctrine\ORM\Mapping as ORM;
     use Symfony\Component\Validator\Constraints as Assert;
     use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -32,7 +32,7 @@
          */
         public function getUrl(): ?string
         {
-            return $this->url;
+            return '/uploads/images/' . $this->url;
         }
 
         /**

@@ -4,7 +4,6 @@
 
     use App\Entity\Interfaces\AuthorEntityInterface;
     use App\Entity\Interfaces\PublishedDateEntityInterface;
-    use AppBundle\Entity\Base\BaseEntity;
     use DateTimeInterface;
     use Doctrine\ORM\Mapping as ORM;
     use Symfony\Component\Security\Core\User\UserInterface;
