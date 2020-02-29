@@ -44,7 +44,13 @@ services:
 
     app.blog.search_filter:
         parent:    'api_platform.doctrine.orm.search_filter'
-        arguments: [ { id: 'exact', title: 'partial', content: 'partial' , author: 'exact' } ]
+        arguments:
+            $properties:
+                id: 'exact'
+                title: 'partial'
+                content: 'partial'
+                author: 'exact'
+                author.name: 'partial'
         tags:      [ 'api_platform.filter' ]
         autowire: false
         autoconfigure: false
@@ -52,7 +58,9 @@ services:
 
     app.blog.date_filter:
         parent: 'api_platform.doctrine.orm.date_filter'
-        arguments: [ { published: ~ } ]
+        arguments:
+            $properties:
+                published: ~
         tags:  [ 'api_platform.filter' ]
         autowire: false
         autoconfigure: false
@@ -60,7 +68,9 @@ services:
 
     app.blog.range_filter:
         parent: 'api_platform.doctrine.orm.range_filter'
-        arguments: [ { id: ~ } ]
+        arguments:
+            $properties:
+                id: ~
         tags:  [ 'api_platform.filter' ]
         autowire: false
         autoconfigure: false
@@ -68,7 +78,12 @@ services:
 
     app.blog.order_filter:
         parent: 'api_platform.doctrine.orm.order_filter'
-        arguments: [ { id: ~, published: ~, title: ~ } ]
+        arguments:
+            $properties:
+                id: ~
+                published: ~
+                title: ~
+            $orderParameterName: '_order'
         tags:  [ 'api_platform.filter' ]
         autowire: false
         autoconfigure: false

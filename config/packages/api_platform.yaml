@@ -1,4 +1,7 @@
 api_platform:
+    # Global behaviour for collection
+#    collection:
+#        order_parameter_name: '_order'
     mapping:
         paths:
             - '%kernel.project_dir%/src/Entity' # default configuration for annotations
