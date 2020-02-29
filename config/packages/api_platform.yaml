@@ -1,10 +1,20 @@
 api_platform:
     # Global behaviour for collection
     collection:
+        # Pagination settings: https://api-platform.com/docs/core/pagination/#pagination
         pagination:
-#            enabled: false
+            client_enabled: false
+            client_items_per_page: true
+            client_partial: true
+            enabled: true
+            enabled_parameter_name: _pagination
+            items_per_page: 5
+            items_per_page_parameter_name: _itemsPerPage
+            maximum_items_per_page: 20
             page_parameter_name: _page
-#        order_parameter_name: '_order'
+            partial: false
+            partial_parameter_name: _partial
+        order_parameter_name: '_order'
 
     mapping:
         paths:

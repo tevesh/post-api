@@ -73,7 +73,7 @@ services:
                 id: ~
                 published: ~
                 title: ~
-            $orderParameterName: '_order'
+#            $orderParameterName: '_order'
         tags:  [ 'api_platform.filter' ]
         autowire: false
         autoconfigure: false

@@ -5,6 +5,12 @@ App\Entity\Comment:
           - 'post'
       order:
         published: 'DESC'
+      pagination_enabled: false
+      pagination_client_enabled: true
+      pagination_client_items_per_page: true
+      pagination_partial: true
+      maximum_items_per_page: 30
+
   itemOperations:
     get:
       method: 'GET'
