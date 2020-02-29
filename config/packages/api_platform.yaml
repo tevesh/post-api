@@ -15,7 +15,8 @@ api_platform:
             partial: false
             partial_parameter_name: _partial
         order_parameter_name: '_order'
-
+    exception_to_status:
+        App\Exception\EmptyBodyException: 400
     mapping:
         paths:
             - '%kernel.project_dir%/src/Entity' # default configuration for annotations

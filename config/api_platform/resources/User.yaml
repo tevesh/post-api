@@ -12,6 +12,8 @@ App\Entity\User:
       normalization_context:
         groups:
           - 'get'
+      validation_groups:
+        - 'post'
   itemOperations:
     get:
       access_control: "is_granted('IS_AUTHENTICATED_FULLY')"
@@ -35,3 +37,5 @@ App\Entity\User:
           - 'put-reset-password'
       method: 'PUT'
       path: '/users/{id}/reset-password'
+      validation_groups:
+        - 'put-reset-password'
