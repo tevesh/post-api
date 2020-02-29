@@ -3,6 +3,7 @@
     namespace App\Entity;
 
     use Doctrine\ORM\Mapping as ORM;
+    use Symfony\Component\Serializer\Annotation\Groups;
     use Symfony\Component\Validator\Constraints as Assert;
     use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -14,6 +15,8 @@
     {
         /**
          * @ORM\Column(type="string", nullable=true)
+         *
+         * @Groups({"get-blog-post-with-author"})
          *
          * @var string $url
          */
