@@ -66,16 +66,6 @@ services:
         autoconfigure: false
         public: false
 
-    app.blog.range_filter:
-        parent: 'api_platform.doctrine.orm.range_filter'
-        arguments:
-            $properties:
-                id: ~
-        tags:  [ 'api_platform.filter' ]
-        autowire: false
-        autoconfigure: false
-        public: false
-
     app.blog.order_filter:
         parent: 'api_platform.doctrine.orm.order_filter'
         arguments:
@@ -84,6 +74,32 @@ services:
                 published: ~
                 title: ~
             $orderParameterName: '_order'
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    app.blog.property_filter:
+        parent: 'api_platform.serializer.property_filter'
+        arguments:
+            $parameterName: 'properties'
+            $overrideDefaultProperties: false
+            $whitelist:
+                - id
+                - author
+                - slug
+                - title
+                - content
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    app.blog.range_filter:
+        parent: 'api_platform.doctrine.orm.range_filter'
+        arguments:
+            $properties:
+                id: ~
         tags:  [ 'api_platform.filter' ]
         autowire: false
         autoconfigure: false

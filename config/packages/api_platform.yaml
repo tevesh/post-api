@@ -1,7 +1,11 @@
 api_platform:
     # Global behaviour for collection
-#    collection:
+    collection:
+        pagination:
+#            enabled: false
+            page_parameter_name: _page
 #        order_parameter_name: '_order'
+
     mapping:
         paths:
             - '%kernel.project_dir%/src/Entity' # default configuration for annotations
@@ -9,5 +13,6 @@ api_platform:
             - '%kernel.project_dir%/config/api_platform/resources' # Custom yaml entity configuration
     patch_formats:
         json: ['application/merge-patch+json']
+
     swagger:
         versions: [3]

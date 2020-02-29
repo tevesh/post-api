@@ -14,6 +14,7 @@ App\Entity\BlogPost:
       filters:
         - 'app.blog.date_filter'
         - 'app.blog.order_filter'
+        - 'app.blog.property_filter'
         - 'app.blog.range_filter'
         - 'app.blog.search_filter'
     post:
