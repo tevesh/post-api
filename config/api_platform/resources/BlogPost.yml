@@ -15,6 +15,7 @@ App\Entity\BlogPost:
     get:
       method: 'GET'
     put:
+      method: 'PUT'
       access_control: "is_granted('ROLE_EDITOR') or (is_granted('ROLE_WRITER') and object.getAuthor() == user)"
       access_control_message: "Sorry, but you are not the actual blog post owner."
   properties:
