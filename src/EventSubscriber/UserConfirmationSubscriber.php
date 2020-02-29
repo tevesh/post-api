@@ -4,6 +4,7 @@
 
     use ApiPlatform\Core\EventListener\EventPriorities;
     use App\Entity\UserConfirmation;
+    use App\Exception\InvalidConfirmationTokenException;
     use App\Service\UserConfirmationService;
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
     use Symfony\Component\HttpFoundation\JsonResponse;
@@ -44,6 +45,8 @@
 
         /**
          * @param ViewEvent $event
+         *
+         * @throws InvalidConfirmationTokenException
          */
         public function confirmUser(ViewEvent $event): void
         {

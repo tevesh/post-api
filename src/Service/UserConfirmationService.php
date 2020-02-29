@@ -2,9 +2,9 @@
 
     namespace App\Service;
 
+    use App\Exception\InvalidConfirmationTokenException;
     use App\Repository\UserRepository;
     use Doctrine\ORM\EntityManagerInterface;
-    use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
     /**
      * Class UserConfirmationService
@@ -35,13 +35,15 @@
 
         /**
          * @param string $confirmationToken
+         *
+         * @throws InvalidConfirmationTokenException
          */
         public function confirmUser(string $confirmationToken): void
         {
             $user = $this->repository->findOneBy(['confirmationToken' => $confirmationToken]);
 
             if (!$user) {
-                throw new NotFoundHttpException(sprintf('Cannot find confirmation token %s', $confirmationToken));
+                throw new InvalidConfirmationTokenException(sprintf('Cannot find confirmation token %s', $confirmationToken));
             }
 
             $user->setEnabled(true);
