@@ -39,3 +39,37 @@ services:
             # With this tag symfony will know that have to use this class during serialization process
             # Bigger priority = call first than other
             - {name: 'serializer.normalizer', priority: 64}
+
+    # API PLATFORM FILTERS
+
+    app.blog.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments: [ { id: 'exact', title: 'partial', content: 'partial' , author: 'exact' } ]
+        tags:      [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    app.blog.date_filter:
+        parent: 'api_platform.doctrine.orm.date_filter'
+        arguments: [ { published: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    app.blog.range_filter:
+        parent: 'api_platform.doctrine.orm.range_filter'
+        arguments: [ { id: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    app.blog.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments: [ { id: ~, published: ~, title: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false

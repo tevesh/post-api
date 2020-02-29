@@ -11,6 +11,11 @@ App\Entity\BlogPost:
   collectionOperations:
     get:
       method: 'GET'
+      filters:
+        - 'app.blog.date_filter'
+        - 'app.blog.order_filter'
+        - 'app.blog.range_filter'
+        - 'app.blog.search_filter'
     post:
       access_control: "is_granted('ROLE_WRITER')"
   itemOperations:

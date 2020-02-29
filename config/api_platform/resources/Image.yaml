@@ -1,4 +1,7 @@
 App\Entity\Image:
+  attributes:
+    order:
+      id: 'DESC'
   collectionOperations:
     get:
       method: 'GET'
