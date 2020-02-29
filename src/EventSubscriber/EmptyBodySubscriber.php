@@ -42,6 +42,8 @@
 
         /**
          * @param RequestEvent $event
+         *
+         * @throws EmptyBodyException
          */
         public function handleEmptyBody(RequestEvent $event): void
         {
