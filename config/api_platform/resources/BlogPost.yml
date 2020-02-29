@@ -1,11 +1,13 @@
 App\Entity\BlogPost:
   attributes:
-    normalization_context:
-      groups:
-        - 'get-blog-post-with-author'
     denormalization_context:
       groups:
         - 'post'
+    normalization_context:
+      groups:
+        - 'get-blog-post-with-author'
+    order:
+      published: 'DESC'
   collectionOperations:
     get:
       method: 'GET'

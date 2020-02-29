@@ -3,6 +3,8 @@ App\Entity\Comment:
       denormalization_context:
         groups:
           - 'post'
+      order:
+        published: 'DESC'
   itemOperations:
     get:
       method: 'GET'
