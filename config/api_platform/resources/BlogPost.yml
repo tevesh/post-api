@@ -22,3 +22,7 @@ App\Entity\BlogPost:
       subresource:
         resourceClass: 'App\Entity\Comment'
         collection: true
+    images:
+      subresource:
+        resourceClass: 'App\Entity\Image'
+        collection: true

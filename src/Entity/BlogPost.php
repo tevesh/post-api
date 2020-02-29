@@ -79,9 +79,19 @@ class BlogPost extends BaseEntity implements AuthorEntityInterface, PublishedDat
      *
      * @Groups({"get-blog-post-with-author"})
      *
-     * @var  Comment[]|ArrayCollection|Collection $comments
+     * @var Comment[]|ArrayCollection|Collection $comments
      */
     private $comments;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Image")
+     * @ORM\JoinTable()
+     *
+     * @Groups({"post"})
+     *
+     * @var  Comment[]|ArrayCollection|Collection $images
+     */
+    private $images;
 
     /**
      * BlogPost constructor.
@@ -92,6 +102,7 @@ class BlogPost extends BaseEntity implements AuthorEntityInterface, PublishedDat
     {
         BaseEntity::__construct();
         $this->comments = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     /**
@@ -214,6 +225,38 @@ class BlogPost extends BaseEntity implements AuthorEntityInterface, PublishedDat
         $this->comments = $comments;
 
         return $this;
+    }
+
+    /**
+     * @return Comment[]|ArrayCollection|Collection
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    /**
+     * @param Comment[]|ArrayCollection|Collection $images
+     */
+    public function setImages(Collection $images): void
+    {
+        $this->images = $images;
+    }
+
+    /**
+     * @param Image $image
+     */
+    public function addImage(Image $image)
+    {
+        $this->images->add($image);
+    }
+
+    /**
+     * @param Image $image
+     */
+    public function removeImage(Image $image)
+    {
+        $this->images->removeElement($image);
     }
 
 }
