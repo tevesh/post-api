@@ -203,7 +203,7 @@
          */
         public function __toString(): string
         {
-            return (string) $this->getEmail();
+            return (string) $this->getUsername();
         }
 
         /**

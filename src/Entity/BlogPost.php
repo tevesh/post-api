@@ -43,9 +43,10 @@
         /**
          * @ORM\Column(type="datetime")
          * @Assert\NotBlank()
-         * @Assert\DateTime()
          *
          * @Groups({"get-blog-post-with-author"})
+         *
+         * @var DateTimeInterface $published
          */
         private $published;
 
@@ -150,11 +151,11 @@
         }
 
         /**
-         * @param DateTimeInterface $published
+         * @param DateTimeInterface|null $published
          *
-         * @return $this
+         * @return PublishedDateEntityInterface
          */
-        public function setPublished(DateTimeInterface $published): PublishedDateEntityInterface
+        public function setPublished(?DateTimeInterface $published): PublishedDateEntityInterface
         {
             $this->published = $published;
 

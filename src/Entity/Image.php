@@ -31,6 +31,14 @@
         private $file;
 
         /**
+         * @return string
+         */
+        public function __toString()
+        {
+            return $this->id . ':' . $this->url;
+        }
+
+        /**
          * @return string|null
          */
         public function getUrl(): ?string
