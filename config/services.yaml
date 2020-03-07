@@ -40,6 +40,10 @@ services:
             # Bigger priority = call first than other
             - {name: 'serializer.normalizer', priority: 64}
 
+    App\Service\UserConfirmationService:
+        arguments:
+            $logger: '@monolog.logger.token_confirmation'
+
     # API PLATFORM FILTERS
 
     app.blog.search_filter:
