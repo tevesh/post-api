@@ -21,6 +21,8 @@
          * @ORM\Column(type="integer")
          *
          * @Groups({"get-comment-with-author"})
+         *
+         * @var int $id
          */
         protected  $id;
 
@@ -30,6 +32,8 @@
          * @Assert\Length(min=5, max=3000)
          *
          * @Groups({"get-comment-with-author", "post"})
+         *
+         * @var string $content
          */
         private $content;
 
@@ -37,6 +41,8 @@
          * @ORM\Column(type="datetime")
          *
          * @Groups({"get-comment-with-author"})
+         *
+         * @var DateTimeInterface $published
          */
         private $published;
 
@@ -45,6 +51,8 @@
          * @ORM\JoinColumn(nullable=false)
          *
          * @Groups({"get-comment-with-author"})
+         *
+         * @var User $author
          */
         private $author;
 
@@ -53,8 +61,18 @@
          * @ORM\JoinColumn(nullable=false)
          *
          * @Groups({"post"})
+         *
+         * @var BlogPost $blogPost
          */
         private $blogPost;
+
+        /**
+         * @return string
+         */
+        public function __toString()
+        {
+            return substr($this->content, 0, 20) . '...';
+        }
 
         /**
          * @return string|null

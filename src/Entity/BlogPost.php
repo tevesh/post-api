@@ -54,6 +54,8 @@
          * @ORM\JoinColumn(nullable=false)
          *
          * @Groups({"get-blog-post-with-author"})
+         *
+         * @var User $author
          */
         private $author;
 
@@ -63,6 +65,8 @@
          * @Assert\Length(min="20")
          *
          * @Groups({"get-blog-post-with-author", "post"})
+         *
+         * @var string $content
          */
         private $content;
 
@@ -70,6 +74,8 @@
          * @ORM\Column(type="string", length=255, nullable=true)
          *
          * @Groups({"get-blog-post-with-author", "post"})
+         *
+         * @var string $slug
          */
         private $slug;
 
@@ -103,6 +109,14 @@
             BaseEntity::__construct();
             $this->comments = new ArrayCollection();
             $this->images = new ArrayCollection();
+        }
+
+        /**
+         * @return string
+         */
+        public function __toString(): string
+        {
+            return $this->title;
         }
 
         /**

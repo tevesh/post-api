@@ -44,6 +44,8 @@
          * @Assert\Length(min=6, max=255, groups={"post"})
          *
          * @Groups({"get", "get-blog-post-with-author", "get-comment-with-author", "post"})
+         *
+         * @var string $username
          */
         private $username;
 
@@ -53,6 +55,8 @@
          * @Assert\Length(min="6", max="255", groups={"post", "put"})
          *
          * @Groups({"get", "get-blog-post-with-author", "get-comment-with-author", "post", "put"})
+         *
+         * @var string $name
          */
         private $name;
 
@@ -101,6 +105,7 @@
          * @ORM\JoinColumn(nullable=false)
          *
          * @Groups({"get"})
+         *
          * @var  BlogPost[]|ArrayCollection|Collection $comments
          */
         private $blogPosts;
