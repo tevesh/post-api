@@ -1,3 +1,2 @@
-easy_admin:
-    entities:
-        - App\Entity\BlogPost
+imports:
+    - { resource: ../easy_admin/entities/*.yaml }
