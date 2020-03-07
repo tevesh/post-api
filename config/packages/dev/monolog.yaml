@@ -1,5 +1,11 @@
 monolog:
     handlers:
+        token_confirmation:
+            channels:
+                - token_confirmation
+            level: debug
+            path: "%kernel.logs_dir%/token_confirmation_%kernel.environment%.log"
+            type: stream
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
