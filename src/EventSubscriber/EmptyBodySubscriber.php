@@ -15,6 +15,11 @@
      */
     class EmptyBodySubscriber implements EventSubscriberInterface
     {
+        private const ADMISSIBLE_CONTENT_TYPES = [
+            'html',
+            'form',
+        ];
+
         /**
          * Returns an array of event names this subscriber wants to listen to.
          *
@@ -47,9 +52,13 @@
          */
         public function handleEmptyBody(RequestEvent $event): void
         {
-            $method = $event->getRequest()->getMethod();
+            $request = $event->getRequest();
+            $method = $request->getMethod();
+            $routeName = $request->get('_route');
 
-            if (!in_array($method, [Request::METHOD_POST, Request::METHOD_PUT], true)) {
+            if (strpos($routeName, 'api') !== 0 ||
+                !in_array($method, [Request::METHOD_POST, Request::METHOD_PUT], true) ||
+                in_array($request->getContentType(), self::ADMISSIBLE_CONTENT_TYPES, true)) {
                 return;
             }
             $data = $event->getRequest()->get('data');
