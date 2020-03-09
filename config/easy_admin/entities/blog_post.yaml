@@ -2,3 +2,14 @@ easy_admin:
     entities:
         BlogPost:
             class: App\Entity\BlogPost
+            label: 'admin.blog_post.name'
+            list:
+                actions:
+                    - { name: 'show', label: 'admin.blog_post.action.show' }
+            show:
+                fields:
+                    - id
+                    - title
+                    - published
+                    - comments
+                    - images
