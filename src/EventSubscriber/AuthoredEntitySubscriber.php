@@ -6,15 +6,16 @@
 
 
     use ApiPlatform\Core\EventListener\EventPriorities;
-    use App\Entity\AuthorEntityInterface;
     use App\Entity\BlogPost;
     use App\Entity\Comment;
+    use App\Entity\Interfaces\AuthorEntityInterface;
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpKernel\Event\ViewEvent;
     use Symfony\Component\HttpKernel\KernelEvents;
-    use Symfony\Component\Security\Core\User\UserInterface;
     use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+    use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+    use Symfony\Component\Security\Core\User\UserInterface;
 
     /**
      * Class AuthoredEntitySubscriber
@@ -45,9 +46,15 @@
             /** @var BlogPost|Comment $entity */
             $entity = $event->getControllerResult();
             $method = $event->getRequest()->getMethod();
-
+            
+            /** @var TokenInterface $token */
+            $token = $this->tokenStorage->getToken();
+            if (null === $token) {
+                return;
+            }
             /** @var UserInterface $author */
-            $author = $this->tokenStorage->getToken()->getUser();
+            $author = $token->getUser();
+            
             if (!$entity instanceof AuthorEntityInterface || Request::METHOD_POST !== $method) {
                 return;
             }
@@ -58,4 +65,5 @@
 
             $entity->setAuthor($author);
         }
+        
     }
