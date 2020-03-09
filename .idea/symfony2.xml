@@ -12,5 +12,6 @@
     <option name="codeFoldingTwigTemplate" value="false" />
     <option name="codeFoldingTwigConstant" value="false" />
     <option name="profilerCsvPath" value="" />
+    <option name="lastServiceGeneratorLanguage" value="yaml" />
   </component>
 </project>
