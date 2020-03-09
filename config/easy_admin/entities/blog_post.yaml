@@ -5,11 +5,11 @@ easy_admin:
             label: 'admin.blog_post.name'
             list:
                 actions:
-                    - { name: 'show', label: 'admin.blog_post.action.show' }
+                    - { name: 'show', label: 'admin.action.show' }
             show:
                 fields:
                     - id
                     - title
                     - published
-                    - comments
+                    - { property: 'comments', template: 'easy_admin/BlogPost/comments.html.twig' }
                     - images

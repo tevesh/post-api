@@ -1,0 +1,16 @@
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>{% trans %}admin.comment.field.id{% endtrans %}</th>
+        <th>{% trans %}admin.comment.field.author{% endtrans %}</th>
+        <th>{% trans %}admin.comment.field.content{% endtrans %}</th>
+    </tr>
+    </thead>
+    {% for comment in value %}
+        <tr>
+            <td>{{ comment.id }}</td>
+            <td>{{ comment.author }}</td>
+            <td>{{ comment.content }}</td>
+        </tr>
+    {% endfor %}
+</table>

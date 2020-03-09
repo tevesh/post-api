@@ -1,21 +1,26 @@
 user:
-  email:
-    confirmation:
-      body: 'Api Platform confirmation token: %s'
-      link: 'Click here to confirm you account'
-      subject: 'Confirm your account'
-      welcome: 'Hello %s!'
-  messages:
-    confirmation:
-      success: 'You have confirmed your account'
+    email:
+        confirmation:
+            body: 'Api Platform confirmation token: %s'
+            link: 'Click here to confirm you account'
+            subject: 'Confirm your account'
+            welcome: 'Hello %s!'
+    messages:
+        confirmation:
+            success: 'You have confirmed your account'
 form:
-  label:
-    file: 'Upload file'
+    label:
+        file: 'Upload file'
 
 ### ADMIN AREA
 admin:
-  blog_post:
-    name: 'Post'
-    name_plural: 'Posts'
     action:
-      show: 'Show'
+        show: 'Show'
+    blog_post:
+        name: 'Post'
+        name_plural: 'Posts'
+    comment:
+        field:
+            author: 'Author'
+            content: 'Content'
+            id: 'ID'
