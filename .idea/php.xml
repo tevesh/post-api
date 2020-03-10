@@ -116,6 +116,10 @@
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
       <path value="$PROJECT_DIR$/vendor/webimpress/safe-writer" />
       <path value="$PROJECT_DIR$/vendor/laminas/laminas-zendframework-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/dom-crawler" />
+      <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/vendor/symfony/test-pack" />
+      <path value="$PROJECT_DIR$/vendor/symfony/browser-kit" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
@@ -185,7 +189,7 @@
   </component>
   <component name="PhpProjectServersManager">
     <servers>
-      <server host="~" id="6efb7dba-c8c9-4efe-9a55-d050d9323d1a" name="docker-server" use_path_mappings="true">
+      <server host="127.0.0.1" id="6efb7dba-c8c9-4efe-9a55-d050d9323d1a" name="docker-server" use_path_mappings="true">
         <path_mappings>
           <mapping local-root="$PROJECT_DIR$" remote-root="/var/www/html" />
           <mapping local-root="$PROJECT_DIR$/var/cache" remote-root="/var/www/html/var/cache" />
