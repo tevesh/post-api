@@ -15,7 +15,7 @@
      */
     class EmptyBodySubscriber implements EventSubscriberInterface
     {
-        private const ADMISSIBLE_CONTENT_TYPES = [
+        public const ADMISSIBLE_CONTENT_TYPES = [
             'html',
             'form',
         ];
@@ -59,6 +59,7 @@
             if (strpos($routeName, 'api') !== 0 ||
                 !in_array($method, [Request::METHOD_POST, Request::METHOD_PUT], true) ||
                 in_array($request->getContentType(), self::ADMISSIBLE_CONTENT_TYPES, true)) {
+                
                 return;
             }
             $data = $event->getRequest()->get('data');

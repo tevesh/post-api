@@ -5,7 +5,7 @@
 
 
     use ApiPlatform\Core\EventListener\EventPriorities;
-    use App\Entity\PublishedDateEntityInterface;
+    use App\Entity\Interfaces\PublishedDateEntityInterface;
     use DateTime;
     use Exception;
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
