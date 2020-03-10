@@ -62,8 +62,17 @@ php bin/console make:migration
 ```bash
 php bin/console doctrine:fixtures:load
 ```
+
 # Useful commands
 
+### Run php unit tests
+```bash
+php bin/phpunit
+```
+### Run the demo behat tests
+```bash
+vendor/bin/behat
+```
 ### Get all branches that will be inside a merge request from master to prod
 ```bash
 git log --oneline prod..master | grep -iE "merge branch" | cut -d' ' -f2- | sort -u
