@@ -21,6 +21,10 @@
         "vich/uploader-bundle": "^1.13"
     },
     "require-dev": {
+        "behat/behat": "^3.6",
+        "behat/mink": "dev-master",
+        "behat/mink-extension": "^2.3",
+        "behat/symfony2-extension": "^2.1",
         "doctrine/doctrine-fixtures-bundle": "^3.2",
         "fzaninotto/faker": "^1.8",
         "symfony/maker-bundle": "^1.14",
