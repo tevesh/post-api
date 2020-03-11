@@ -131,6 +131,8 @@
       <path value="$PROJECT_DIR$/vendor/coduo/php-to-string" />
       <path value="$PROJECT_DIR$/vendor/coduo/php-matcher" />
       <path value="$PROJECT_DIR$/vendor/openlss/lib-array2xml" />
+      <path value="$PROJECT_DIR$/vendor/behat/mink-browserkit-driver" />
+      <path value="$PROJECT_DIR$/vendor/symfony/browser-kit" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
