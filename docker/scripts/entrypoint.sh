@@ -3,8 +3,10 @@
 #Exit immediately if a pipeline returns a non-zero status.
 set -e
 
-# Create a .env.php file
-composer dump-env ${ENVIRONMENT}
+if [[ 'dev' ! =${ENVIRONMENT} ]]; then
+    # Create a .env.local.php file
+    composer dump-env ${ENVIRONMENT}
+fi
 
 if  [[ "dev" = "${ENVIRONMENT}" ]]; then
     printf "\n==> Change groupid to ${USER_GROUP}\n";
