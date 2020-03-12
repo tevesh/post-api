@@ -64,7 +64,10 @@ php bin/console doctrine:fixtures:load
 ```
 
 # Useful commands
-
+### Generate .env.local.php file for **stage** or **prod** environments
+```bash
+composer dump-env ${ENVIRONMENT}
+```
 ### Run php unit tests
 ```bash
 php bin/phpunit

@@ -3,10 +3,19 @@ default:
         default:
             contexts:
                 - FeatureContext:
-                    kernel: '@kernel'
+                    fixture: '@App\DataFixtures\AppFixtures'
+                    em: '@doctrine.orm.default_entity_manager'
+                - Behat\MinkExtension\Context\Minkcontext
+                - behatch:context:json
 
     extensions:
         Behat\Symfony2Extension:
             kernel:
                 bootstrap: features/bootstrap/bootstrap.php
                 class: App\Kernel
+        Behatch\Extension: ~
+        Behat\MinkExtension:
+            base_url: '%env(resolve:BASE_PROJECT_URL)%'
+            sessions:
+                default:
+                    symfony2: ~
