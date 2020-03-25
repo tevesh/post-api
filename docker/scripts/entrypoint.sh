@@ -3,7 +3,7 @@
 #Exit immediately if a pipeline returns a non-zero status.
 set -e
 
-if [[ 'dev' ! =${ENVIRONMENT} ]]; then
+if [[ 'dev' != ${ENVIRONMENT} ]] || [[ "test" != "${ENVIRONMENT}" ]]; then
     # Create a .env.local.php file
     composer dump-env ${ENVIRONMENT}
 fi

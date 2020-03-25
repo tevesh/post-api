@@ -2,19 +2,19 @@
     
     namespace App\Tests\EventSubscriber;
     
-    use \ApiPlatform\Core\EventListener\EventPriorities;
-    use \App\Entity\BlogPost;
+    use ApiPlatform\Core\EventListener\EventPriorities;
+    use App\Entity\BlogPost;
     use App\Entity\Comment;
-    use \App\Entity\User;
-    use \App\EventSubscriber\AuthoredEntitySubscriber;
-    use \Exception;
-    use \PHPUnit\Framework\MockObject\MockObject;
-    use \PHPUnit\Framework\TestCase;
+    use App\Entity\User;
+    use App\EventSubscriber\AuthoredEntitySubscriber;
+    use Exception;
+    use PHPUnit\Framework\MockObject\MockObject;
+    use PHPUnit\Framework\TestCase;
     use Symfony\Component\HttpFoundation\Request;
-    use \Symfony\Component\HttpKernel\Event\ViewEvent;
-    use \Symfony\Component\HttpKernel\KernelEvents;
-    use \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-    use \Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+    use Symfony\Component\HttpKernel\Event\ViewEvent;
+    use Symfony\Component\HttpKernel\KernelEvents;
+    use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+    use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
     
     class AuthoredEntitySubscriberTest extends TestCase
     {
