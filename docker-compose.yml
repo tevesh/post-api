@@ -72,8 +72,6 @@ services:
       dockerfile: Dockerfile
       context: .
     container_name: php
-    env_file:
-      - .env.local
     networks:
       - webnetwork
       - default
