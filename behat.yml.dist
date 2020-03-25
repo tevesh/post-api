@@ -3,7 +3,7 @@ default:
         default:
             contexts:
                 - FeatureContext:
-                    fixture: '@App\DataFixtures\AppFixtures'
+                    fixtures: '@App\DataFixtures\AppFixtures'
                     em: '@doctrine.orm.default_entity_manager'
                 - Behat\MinkExtension\Context\Minkcontext
                 - behatch:context:json
@@ -15,7 +15,8 @@ default:
                 class: App\Kernel
         Behatch\Extension: ~
         Behat\MinkExtension:
-            base_url: '%env(resolve:BASE_PROJECT_URL)%'
+            base_url: '%env(resolve:BASE_PROJECT_URL)%' # using docker
+#            base_url: 'http://127.0.0.1:8000' # not using docker
             sessions:
                 default:
                     symfony2: ~
