@@ -44,10 +44,9 @@
             parent::__construct($request);
             $this->fixtures = $fixtures;
             $this->matcher = (new MatcherFactory)->createMatcher();
-            
             $this->em = $em;
         }
-        
+    
         /**
          * @BeforeScenario @createSchema
          *
