@@ -17,9 +17,9 @@ interface PublishedDateEntityInterface
     public function getPublished(): ?DateTimeInterface;
 
     /**
-     * @param DateTimeInterface $published
+     * @param DateTimeInterface|null $published
      *
      * @return PublishedDateEntityInterface
      */
-    public function setPublished(DateTimeInterface $published): PublishedDateEntityInterface;
+    public function setPublished(?DateTimeInterface $published): PublishedDateEntityInterface;
 }

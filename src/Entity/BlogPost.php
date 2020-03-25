@@ -42,7 +42,6 @@
 
         /**
          * @ORM\Column(type="datetime")
-         * @Assert\NotBlank()
          *
          * @Groups({"get-blog-post-with-author"})
          *

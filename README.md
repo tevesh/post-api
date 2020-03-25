@@ -84,7 +84,7 @@ php bin/phpunit
 ```
 APP_ENV=test php -d variable_order=EGPCS -S 127.0.0.1:8000 -t public
 ```
-### Run the demo behat tests
+### Run the behat tests
 ```bash
 ./vendor/bin/behat
 ```

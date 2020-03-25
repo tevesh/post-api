@@ -21,10 +21,8 @@
     class AppFixtures extends Fixture
     {
         protected const USER_ROLES = [
-            User::ROLE_ADMIN,
             User::ROLE_COMMENTATOR,
             User::ROLE_EDITOR,
-            User::ROLE_SUPERADMIN,
             User::ROLE_WRITER,
         ];
 
@@ -63,7 +61,7 @@
         protected function getRandomRole(): array
         {
             try {
-                $role = self::USER_ROLES[random_int(0, 4)];
+                $role = self::USER_ROLES[random_int(0, count(self::USER_ROLES))];
             } catch (Exception $exception) {
                 printf("Catch exception: {$exception->getMessage()}\n\n");
 
@@ -203,6 +201,17 @@
          */
         public function loadUsers(ObjectManager $manager): void
         {
+            echo sprintf("Create an admin user\n");
+            $adminUser = new User();
+            $adminUser->setName('admin');
+            $adminUser->setEmail('admin@post-api.dev.it');
+            $adminUser->setUsername('admin');
+            $adminUser->setPassword($this->passwordEncoder->encodePassword($adminUser, 'Test123!'));
+            $adminUser->setRoles([User::ROLE_SUPERADMIN]);
+            $adminUser->setEnabled(true);
+            $manager->persist($adminUser);
+            
+            echo sprintf("Create all other users\n");
             for ($i = 0; $i <= 10; $i++) {
                 printf("Create user {$i}\n");
                 // Setup a new fake entity

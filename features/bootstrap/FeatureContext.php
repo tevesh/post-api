@@ -19,6 +19,18 @@
      */
     class FeatureContext extends RestContext
     {
+        protected CONST USERS = [
+            'admin' => 'Test123!',
+        ];
+        
+        protected CONST AUTH_URL = '/api/login_check';
+        
+        protected CONST AUTH_JSON = '
+            {
+                "username":"%s",
+                "password":"%s"
+            }
+        ';
         /**
          * @var AppFixtures
          */
@@ -46,7 +58,30 @@
             $this->matcher = (new MatcherFactory)->createMatcher();
             $this->em = $em;
         }
-    
+        
+        /**
+         * @Given I am authenticated as :user
+         *
+         * @param $user
+         */
+        public function imAuthenticatedAs($user): void
+        {
+            $this->request->setHttpHeader('Content-Type', 'application/ld+json');
+            $this->request->send(
+                'POST',
+                $this->locatePath(self::AUTH_URL),
+                [],
+                [],
+                sprintf(self::AUTH_JSON, $user, self::USERS[$user])
+            );
+            $json = json_decode($this->request->getContent(), true);
+            // Assert that a token is created
+            $this->assertTrue(isset($json['token']));
+            
+            $token = $json['token'];
+            $this->request->setHttpHeader('Authorization', 'Bearer ' . $token);
+        }
+        
         /**
          * @BeforeScenario @createSchema
          *

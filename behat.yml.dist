@@ -15,8 +15,7 @@ default:
                 class: App\Kernel
         Behatch\Extension: ~
         Behat\MinkExtension:
-            base_url: '%env(resolve:BASE_PROJECT_URL)%' # using docker
-#            base_url: 'http://127.0.0.1:8000' # not using docker
+            base_url: http://localhost
             sessions:
                 default:
                     symfony2: ~
