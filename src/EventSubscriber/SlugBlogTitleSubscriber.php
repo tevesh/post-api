@@ -7,6 +7,7 @@
     use ApiPlatform\Core\EventListener\EventPriorities;
     use App\Entity\BlogPost;
     use App\Service\TextManipulationService;
+    use Doctrine\ORM\EntityManagerInterface;
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -18,12 +19,26 @@
      */
     class SlugBlogTitleSubscriber implements EventSubscriberInterface
     {
-        /** @var TextManipulationService $textManipulation */
+        /**
+         * @var TextManipulationService $textManipulation
+         */
         private $textManipulation;
-
-        public function __construct(TextManipulationService $textManipulation)
+        
+        /**
+         * @var EntityManagerInterface
+         */
+        private $em;
+    
+        /**
+         * SlugBlogTitleSubscriber constructor.
+         *
+         * @param TextManipulationService $textManipulation
+         * @param EntityManagerInterface $em
+         */
+        public function __construct(TextManipulationService $textManipulation, EntityManagerInterface $em)
         {
             $this->textManipulation = $textManipulation;
+            $this->em = $em;
         }
 
         /**
@@ -48,8 +63,16 @@
             if (!$blogPost instanceof BlogPost || Request::METHOD_POST !== $method) {
                 return;
             }
-
-            $blogPost->setSlug($this->textManipulation->slugify($blogPost->getTitle()));
+    
+            $slug = $slug = $this->textManipulation->slugify($blogPost->getTitle());
+    
+            $slugAlreadyPresent = $this->em->getRepository('App:BlogPost')->findOneBy(['slug' => $slug]);
+            
+            if($slugAlreadyPresent) {
+                $slug .= '-' . $blogPost->getId();
+            }
+    
+            $blogPost->setSlug($slug);
         }
 
     }
