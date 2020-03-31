@@ -1,6 +1,7 @@
 <?php
     
     use App\DataFixtures\AppFixtures;
+    use Behat\Gherkin\Node\PyStringNode;
     use Behatch\Context\RestContext;
     use Behatch\HttpCall\Request;
     use Coduo\PHPMatcher\Factory\MatcherFactory;
@@ -31,6 +32,7 @@
                 "password":"%s"
             }
         ';
+        
         /**
          * @var AppFixtures
          */
@@ -60,6 +62,8 @@
         }
         
         /**
+         * Create a JWT token and pass it through the request
+         *
          * @Given I am authenticated as :user
          *
          * @param $user
@@ -75,14 +79,33 @@
                 sprintf(self::AUTH_JSON, $user, self::USERS[$user])
             );
             $json = json_decode($this->request->getContent(), true);
-            // Assert that a token is created
+            // Assert that a token was returned
             $this->assertTrue(isset($json['token']));
-            
+            // Get token returned
             $token = $json['token'];
+            // Storing the token to the request
             $this->request->setHttpHeader('Authorization', 'Bearer ' . $token);
         }
         
         /**
+         * Check that the content is exactly as described into feature file
+         * @link https://github.com/coduo/php-matcher
+         *
+         * @Then the JSON matched expected template:
+         *
+         * @param PyStringNode $json
+         */
+        public function theJsonMatchedExpectedTemplate(PyStringNode $json)
+        {
+            $content = $this->request->getContent();
+            $this->assertTrue(
+                $this->matcher->match($content, $json->getRaw())
+            );
+        }
+        
+        /**
+         * Create a fresh new test database before run the scenario
+         *
          * @BeforeScenario @createSchema
          *
          * @throws ToolsException
