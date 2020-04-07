@@ -140,7 +140,7 @@
          */
         public function loadBlogPosts(ObjectManager $manager): void
         {
-            for ($i = 0; $i <= 100; $i++) {
+            for ($i = 0; $i < 100; $i++) {
                 // Setup a new fake entity
                 $title = $this->faker->text(60);
                 printf("Create blog post {$i}\n");
@@ -172,7 +172,7 @@
          */
         public function loadComments(ObjectManager $manager): void
         {
-            for ($i = 0; $i <= 10; $i++) {
+            for ($i = 0; $i < 10; $i++) {
                 for ($j = 0; $j <= 10; $j++) {
                     // Setup a new fake entity
                     printf("Create comment {$i}:{$j}\n");
@@ -212,7 +212,7 @@
             $manager->persist($adminUser);
             
             echo sprintf("Create all other users\n");
-            for ($i = 0; $i <= 10; $i++) {
+            for ($i = 0; $i < 10; $i++) {
                 printf("Create user {$i}\n");
                 // Setup a new fake entity
                 $user = new User();
