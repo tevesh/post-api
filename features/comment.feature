@@ -115,3 +115,32 @@ Feature: Manage comment
     }
     """
     Then the response status code should be 401
+
+  @createSchema @comment
+  Scenario: Throw an error when create a comment for non existent blog post
+    When I add "Content-Type" header equal to "application/ld+json"
+    And I add "Accept" header equal to "application/ld+json"
+    And I send a "POST" request to "/api/comments" with body:
+    """
+    {
+      "blogPost": "/api/blog_posts/105"
+    }
+    """
+    Then the response status code should be 400
+    And the response should be in JSON
+    And the JSON matched expected template:
+    """
+    {
+      "@context": "/api/contexts/ConstraintViolationList",
+      "@type": "ConstraintViolationList",
+      "hydra:title": "An error occurred",
+      "hydra:description": "Item not found for \"/api/blog_posts/105\".",
+      "violations": [
+          {
+              "propertyPath": "",
+              "message": "Item not found for \"/api/blog_posts/105\"."
+          }
+      ]
+    }
+    """
+

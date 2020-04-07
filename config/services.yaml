@@ -44,6 +44,13 @@ services:
         arguments:
             $logger: '@monolog.logger.token_confirmation'
 
+    App\EventListener\ErrorListener:
+        # overrides the ApiPlatform\Core\EventListener\ExceptionListener that provide a messy exception message
+        arguments:
+            ['@api_platform.action.exception', '@logger', true, '@exception_listener']
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, priority: 1 }
+
     # API PLATFORM FILTERS
 
     app.blog.search_filter:
