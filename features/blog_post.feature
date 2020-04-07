@@ -1,5 +1,6 @@
 Feature: Manage blog post
-  @createSchema
+
+  @createSchema @blog_post
   Scenario: Create a blog post
     Given I am authenticated as admin
     When I add "Content-Type" header equal to "application/ld+json"
@@ -39,8 +40,8 @@ Feature: Manage blog post
     }
     """
 
-  @createSchema
-  Scenario: Throw an error when user in not authenticated
+  @createSchema @blog_post
+  Scenario: Throw an error when blog post is not valid
     Given I am authenticated as admin
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
@@ -80,7 +81,8 @@ Feature: Manage blog post
       ]
     }
     """
-  @createSchema
+
+  @createSchema @blog_post
   Scenario: Throw an error when user in not authenticated
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"

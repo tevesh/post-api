@@ -84,7 +84,12 @@ php bin/phpunit
 ```
 APP_ENV=test php -d variable_order=EGPCS -S 127.0.0.1:8000 -t public
 ```
-### Run the behat tests
+### Run all the behat tests
 ```bash
 ./vendor/bin/behat
+```
+
+### Run only the behat tests with certain tags
+```bash
+./vendor/bin/behat --tags=TAG_NAME
 ```
