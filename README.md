@@ -89,7 +89,16 @@ APP_ENV=test php -d variable_order=EGPCS -S 127.0.0.1:8000 -t public
 ./vendor/bin/behat
 ```
 
-### Run only the behat tests with certain tags
+### Run concrete test for this project
+
+* Blog post scenarios
+ 
 ```bash
-./vendor/bin/behat --tags=TAG_NAME
+./vendor/bin/behat --tags=blog_post
+```
+
+* Comment scenarios
+
+```bash
+./vendor/bin/behat --tags=comment
 ```
