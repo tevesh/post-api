@@ -125,4 +125,15 @@
             $fixtureExecutor = new ORMExecutor($this->em, $purger);
             $fixtureExecutor->execute([$this->fixtures]);
         }
+    
+        /**
+         * Copy the image file inside the folder features/fixtures/test-files into folder features/fixtures
+         * This file will be deleted during the upload scenario
+         *
+         * @BeforeScenario @image
+         */
+        public function createImageToUpload(): void
+        {
+            copy(__DIR__ . '/../fixtures/test-files/spongebob.jpg', __DIR__ . '/../fixtures/spongebob.jpg');
+        }
     }

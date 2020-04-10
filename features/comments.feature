@@ -1,4 +1,4 @@
-Feature: Manage comment
+Feature: Manage comments
 
   @comment
   Scenario: Create a comment for a blog post

@@ -102,3 +102,9 @@ APP_ENV=test php -d variable_order=EGPCS -S 127.0.0.1:8000 -t public
 ```bash
 ./vendor/bin/behat --tags=comment
 ```
+
+* Image scenarios
+
+```bash
+./vendor/bin/behat --tags=image
+```

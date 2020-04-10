@@ -1,4 +1,4 @@
-Feature: Manage blog post
+Feature: Manage blog posts
 
   @createSchema @blog_post @comment
   Scenario: Create a blog post

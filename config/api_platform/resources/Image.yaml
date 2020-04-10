@@ -6,6 +6,7 @@ App\Entity\Image:
     get:
       method: 'GET'
     post:
+      access_control: "is_granted('ROLE_WRITER')"
       method: 'POST'
       path: '/images'
       controller: App\Controller\UploadImageAction
