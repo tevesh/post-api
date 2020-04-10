@@ -62,9 +62,10 @@
                 
                 return;
             }
-            $data = $event->getRequest()->get('data');
-            if (null === $data) {
-                throw new EmptyBodyException();
+            $data = $request->get('data');
+            $file = $request->files->get('file');
+            if (null === $data && null === $file) {
+                throw new EmptyBodyException('Request have empty body');
             }
         }
 
