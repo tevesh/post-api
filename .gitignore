@@ -22,5 +22,6 @@ behat.yml
 ###< behat/symfony2-extension ###
 
 ###> behat/fixture ###
-/features/fixtures/*.*
+/features/fixtures
+!/features/fixtures/test-files
 ###< behat/symfony2-extension ###
