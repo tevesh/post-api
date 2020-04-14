@@ -1,6 +1,6 @@
 Feature: Manage blog posts
 
-  @createSchema @blog_post @comment
+  @createSchema @blog_post @comment @image
   Scenario: Create a blog post
     Given I am authenticated as admin
     When I add "Content-Type" header equal to "application/ld+json"

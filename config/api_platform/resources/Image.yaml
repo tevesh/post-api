@@ -12,3 +12,7 @@ App\Entity\Image:
       controller: App\Controller\UploadImageAction
       defaults:
         _api_receive: false
+#  itemOperations:
+#    get:
+#    delete:
+#      security: "is_granted('ROLE_WRITER')"
