@@ -56,15 +56,19 @@
             $method = $request->getMethod();
             $routeName = $request->get('_route');
 
+            // Check the route name not begin with 'api'
+            // To avoid to throw an exception with file upload add check to the content type of the header begin with multipart/form-data
+            // Check that method is not post or put
+            // Check that content type of request is http of form
             if (strpos($routeName, 'api') !== 0 ||
                 !in_array($method, [Request::METHOD_POST, Request::METHOD_PUT], true) ||
+                strpos($request->headers->get('Content-Type'), 'multipart/form-data') === 0 ||
                 in_array($request->getContentType(), self::ADMISSIBLE_CONTENT_TYPES, true)) {
                 
                 return;
             }
             $data = $request->get('data');
-            $file = $request->files->get('file');
-            if (null === $data && null === $file) {
+            if (null === $data) {
                 throw new EmptyBodyException('Request have empty body');
             }
         }
