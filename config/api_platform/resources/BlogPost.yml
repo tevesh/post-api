@@ -24,8 +24,8 @@ App\Entity\BlogPost:
       method: 'GET'
     put:
       method: 'PUT'
-      access_control: "is_granted('ROLE_EDITOR') or (is_granted('ROLE_WRITER') and object.getAuthor() == user)"
-      access_control_message: "Sorry, but you are not the actual blog post owner."
+      security: "is_granted('ROLE_EDITOR') or (is_granted('ROLE_WRITER') and object.getAuthor() == user)"
+      security_message: "Sorry, but you are not the actual blog post owner."
   properties:
     comments:
       subresource:
