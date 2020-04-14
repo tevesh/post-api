@@ -18,7 +18,7 @@ App\Entity\BlogPost:
         - 'app.blog.range_filter'
         - 'app.blog.search_filter'
     post:
-      access_control: "is_granted('ROLE_WRITER')"
+      security: "is_granted('ROLE_WRITER')"
   itemOperations:
     get:
       method: 'GET'
