@@ -3,7 +3,7 @@ default:
         default:
             contexts:
                 - FeatureContext:
-                    fixtures: '@App\DataFixtures\AppFixtures'
+                    fixtures: '@App\DataFixtures\AppFixtureSilent'
                     em: '@doctrine.orm.default_entity_manager'
                 - Behat\MinkExtension\Context\Minkcontext
                 - behatch:context:json

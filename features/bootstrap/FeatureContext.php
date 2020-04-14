@@ -1,6 +1,7 @@
 <?php
     
     use App\DataFixtures\AppFixtures;
+    use App\DataFixtures\AppFixtureSilent;
     use Behat\Gherkin\Node\PyStringNode;
     use Behatch\Context\RestContext;
     use Behatch\HttpCall\Request;
@@ -34,7 +35,7 @@
         ';
         
         /**
-         * @var AppFixtures
+         * @var AppFixtureSilent
          */
         private $fixtures;
         /**
@@ -45,15 +46,15 @@
          * @var EntityManagerInterface $em
          */
         private $em;
-        
+    
         /**
          * FeatureContext constructor.
          *
          * @param Request $request
-         * @param AppFixtures $fixtures
+         * @param AppFixtureSilent $fixtures
          * @param EntityManagerInterface $em
          */
-        public function __construct(Request $request, AppFixtures $fixtures, EntityManagerInterface $em)
+        public function __construct(Request $request, AppFixtureSilent $fixtures, EntityManagerInterface $em)
         {
             parent::__construct($request);
             $this->fixtures = $fixtures;
@@ -95,7 +96,7 @@
          *
          * @param PyStringNode $json
          */
-        public function theJsonMatchedExpectedTemplate(PyStringNode $json)
+        public function theJsonMatchedExpectedTemplate(PyStringNode $json): void
         {
             $content = $this->request->getContent();
             $this->assertTrue(

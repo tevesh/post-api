@@ -54,63 +54,69 @@
             $this->textManipulation = $textManipulation;
             $this->tokenGenerator = $tokenGenerator;
         }
-
+    
         /**
+         * @param bool $silent
+         *
          * @return array
          */
-        protected function getRandomRole(): array
+        protected function getRandomRole(bool $silent): array
         {
             try {
-                $role = self::USER_ROLES[random_int(0, count(self::USER_ROLES))];
+                $role = self::USER_ROLES[random_int(0, count(self::USER_ROLES) -1)];
             } catch (Exception $exception) {
-                printf("Catch exception: {$exception->getMessage()}\n\n");
+                $silent ?: printf("Catch exception: {$exception->getMessage()}\n\n");
 
-                return $this->getRandomRole();
+                return $this->getRandomRole($silent);
             }
 
             if (empty($role)) {
-                return $this->getRandomRole();
+                return $this->getRandomRole($silent);
             }
-            printf("return role: {$role}\n\n");
+            $silent ?: printf("return role: {$role}\n\n");
 
             return [$role];
         }
-
+    
         /**
          * @param ObjectManager $manager
          *
+         * @param bool $silent
+         *
          * @return BlogPost
          */
-        protected function getRandomBlogPost(ObjectManager $manager): BlogPost
+        protected function getRandomBlogPost(ObjectManager $manager, bool $silent): BlogPost
         {
             $min = min($this->blogPostsIds);
-            printf("Min blog id is {$min}\n");
+            $silent ?: printf("Min blog id is {$min}\n");
             $max = max($this->blogPostsIds);
-            printf("Max blog id is {$max}\n");
+            $silent ?: printf("Max blog id is {$max}\n");
             try {
                 $blogPost = $manager->getRepository('App:BlogPost')->find(random_int($min, $max));
             } catch (Exception $exception) {
-                printf("Catch exception {$exception->getMessage()}\n\n");
+                $silent ?: printf("Catch exception {$exception->getMessage()}\n\n");
 
-                return $this->getRandomBlogPost($manager);
+                return $this->getRandomBlogPost($manager, $silent);
             }
 
             if (empty($blogPost)) {
-                return $this->getRandomBlogPost($manager);
+                return $this->getRandomBlogPost($manager, $silent);
             }
-            printf("Return blog {$blogPost->getId()}\n\n");
+            $silent ?: printf("Return blog {$blogPost->getId()}\n\n");
 
             return $blogPost;
         }
-
+    
         /**
          * @param ObjectManager $manager
          *
          * @param string $role
          *
+         * @param bool $silent
+         *
          * @return User
          */
-        protected function getRandomUserByRole(ObjectManager $manager, string $role): User
+        protected function getRandomUserByRole(ObjectManager $manager, string $role, bool $silent): User
         {
             $usersWithRoleEditor = $manager->getRepository('App:User')->findByRole($role);
             try {
@@ -121,87 +127,95 @@
                     $user = $usersWithRoleEditor;
                 }
             } catch (Exception $exception) {
-                printf("Catch exception {$exception->getMessage()}\n\n");
+                $silent ?: printf("Catch exception {$exception->getMessage()}\n\n");
 
-                return $this->getRandomUserByRole($manager, $role);
+                return $this->getRandomUserByRole($manager, $role, $silent);
             }
             if (null === $user) {
-                return $this->getRandomUserByRole($manager, $role);
+                return $this->getRandomUserByRole($manager, $role, $silent);
             }
-            printf("Get user {$user->getUsername()}\n\n");
+            $silent ?: printf("Get user {$user->getUsername()}\n\n");
 
             return $user;
         }
-
+    
         /**
          * @param ObjectManager $manager
          *
+         * @param bool $silent
+         *
          * @throws Exception
          */
-        public function loadBlogPosts(ObjectManager $manager): void
+        public function loadBlogPosts(ObjectManager $manager, bool $silent): void
         {
             for ($i = 0; $i < 100; $i++) {
                 // Setup a new fake entity
                 $title = $this->faker->text(60);
-                printf("Create blog post {$i}\n");
+                $silent ?: printf("Create blog post {$i}\n");
                 $blogPost = new BlogPost();
-                printf("Set title for blog post {$i}\n");
+                $silent ?: printf("Set title for blog post {$i}\n");
                 $blogPost->setTitle($title);
-                printf("Set publish date for blog post {$i}\n");
+                $silent ?: printf("Set publish date for blog post {$i}\n");
                 $blogPost->setPublished($this->faker->dateTimeThisYear);
-                printf("Set content for blog post {$i}\n");
+                $silent ?: printf("Set content for blog post {$i}\n");
                 $blogPost->setContent($this->faker->realText());
-                printf("Set author for blog post {$i}\n");
-                $blogPost->setAuthor($this->getRandomUserByRole($manager, User::ROLE_EDITOR));
-                printf("Set slug for blog post {$i}\n");
+                $silent ?: printf("Set author for blog post {$i}\n");
+                $blogPost->setAuthor($this->getRandomUserByRole($manager, User::ROLE_EDITOR, $silent));
+                $silent ?: printf("Set slug for blog post {$i}\n");
                 $blogPost->setSlug($this->textManipulation->slugify($title));
-                printf("Persist blog post {$i}\n\n");
+                $silent ?: printf("Persist blog post {$i}\n\n");
                 $manager->persist($blogPost);
                 // Persist ALL operations pending inside manager
-                printf("Flush entity manager for all blog posts\n");
+                $silent ?: printf("Flush entity manager for all blog posts\n");
                 $manager->flush();
                 $manager->clear();
                 $this->blogPostsIds[] = $blogPost->getId();
             }
         }
-
+    
         /**
          * @param ObjectManager $manager
          *
+         * @param bool $silent
+         *
          * @throws Exception
          */
-        public function loadComments(ObjectManager $manager): void
+        public function loadComments(ObjectManager $manager, bool $silent): void
         {
             for ($i = 0; $i < 10; $i++) {
                 for ($j = 0; $j <= 10; $j++) {
                     // Setup a new fake entity
-                    printf("Create comment {$i}:{$j}\n");
+                    $silent ?: printf("Create comment {$i}:{$j}\n");
                     $comment = new Comment();
-                    printf("Set comment content {$i}:{$j}\n");
+                    $silent ?: printf("Set comment content {$i}:{$j}\n");
                     $comment->setContent($this->faker->text());
-                    printf("Set comment publish date {$i}:{$j}\n");
+                    $silent ?: printf("Set comment publish date {$i}:{$j}\n");
                     $comment->setPublished($this->faker->dateTimeThisYear);
-                    printf("Set comment author {$i}:{$j}\n");
-                    $comment->setAuthor($this->getRandomUserByRole($manager, User::ROLE_COMMENTATOR));
-                    printf("Set comment blog post {$i}:{$j}\n");
-                    $comment->setBlogPost($this->getRandomBlogPost($manager));
-                    printf("Persist comment {$i}:{$j}\n\n");
+                    $silent ?: printf("Set comment author {$i}:{$j}\n");
+                    $comment->setAuthor($this->getRandomUserByRole($manager, User::ROLE_COMMENTATOR, $silent));
+                    $silent ?: printf("Set comment blog post {$i}:{$j}\n");
+                    $comment->setBlogPost($this->getRandomBlogPost($manager, $silent));
+                    $silent ?: printf("Persist comment {$i}:{$j}\n\n");
                     $manager->persist($comment);
                 }
             }
             // Persist ALL operations pending inside manager
-            printf("Flush entity manager for all comments\n");
+            $silent ?: printf("Flush entity manager for all comments\n");
             $manager->flush();
         }
-
+    
         /**
          * @param ObjectManager $manager
          *
+         * @param bool $silent
+         *
          * @throws Exception
          */
-        public function loadUsers(ObjectManager $manager): void
+        public function loadUsers(ObjectManager $manager, bool $silent): void
         {
-            echo sprintf("Create an admin user\n");
+            $silent ?: printf("Create base users\n");
+            
+            // Create a static superadmin user
             $adminUser = new User();
             $adminUser->setName('admin');
             $adminUser->setEmail('admin@post-api.dev.it');
@@ -210,46 +224,61 @@
             $adminUser->setRoles([User::ROLE_SUPERADMIN]);
             $adminUser->setEnabled(true);
             $manager->persist($adminUser);
+    
+            // Create a static base users to be sure that exist at least one per kind
+            foreach (self::USER_ROLES as $userRole) {
+                $baseUser = new User();
+                $baseUser->setName($this->faker->name);
+                $baseUser->setEmail($this->faker->email);
+                $baseUser->setUsername($this->faker->userName);
+                $baseUser->setPassword($this->passwordEncoder->encodePassword($baseUser, 'Test123!'));
+                $baseUser->setRoles([$userRole]);
+                $baseUser->setEnabled(true);
+                $manager->persist($baseUser);
+            }
             
-            echo sprintf("Create all other users\n");
+            $silent ?: printf("Create all other users\n");
+            
             for ($i = 0; $i < 10; $i++) {
-                printf("Create user {$i}\n");
+                $silent ?: printf("Create user {$i}\n");
                 // Setup a new fake entity
                 $user = new User();
-                printf("Set name for user {$i}\n");
+                $silent ?: printf("Set name for user {$i}\n");
                 $user->setName($this->faker->name);
-                printf("Set username for user {$i}\n");
+                $silent ?: printf("Set username for user {$i}\n");
                 $user->setUsername($this->faker->userName);
-                printf("Set email for user {$i}\n");
+                $silent ?: printf("Set email for user {$i}\n");
                 $user->setEmail($this->faker->email);
-                printf("Set password for user {$i}\n");
+                $silent ?: printf("Set password for user {$i}\n");
                 $user->setPassword($this->passwordEncoder->encodePassword($user, 'Test123!'));
-                printf("Set roles for user {$i}\n");
-                $user->setRoles($this->getRandomRole());
-                printf("Set user enabled {$i}\n");
+                $silent ?: printf("Set roles for user {$i}\n");
+                $user->setRoles($this->getRandomRole($silent));
+                $silent ?: printf("Set user enabled {$i}\n");
                 $user->setEnabled((bool)random_int(0, 1));
                 if (!$user->isEnabled()) {
-                    printf("Set confirmation token {$i}\n");
+                    $silent ?: printf("Set confirmation token {$i}\n");
                     $user->setConfirmationToken($this->tokenGenerator->getRandomSecureToken());
                 }
-                printf("Persist user {$i}\n");
+                $silent ?: printf("Persist user {$i}\n");
                 $manager->persist($user);
             }
             // Persist ALL operations pending inside manager
-            printf("Flush entity manager for all users\n");
+            $silent ?: printf("Flush entity manager for all users\n");
             $manager->flush();
         }
-
+    
         /**
          * @param ObjectManager $manager
          *
+         * @param bool $silent
+         *
          * @throws Exception
          */
-        public function load(ObjectManager $manager): void
+        public function load(ObjectManager $manager, bool $silent = false): void
         {
-            $this->loadUsers($manager);
-            $this->loadBlogPosts($manager);
-            $this->loadComments($manager);
+            $this->loadUsers($manager, $silent);
+            $this->loadBlogPosts($manager, $silent);
+            $this->loadComments($manager, $silent);
         }
 
     }
