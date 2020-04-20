@@ -69,7 +69,7 @@ Feature: Manage comments
     }
     """
 
-  @createSchema @comment
+  @comment
   Scenario: Throw an error when comments is not valid
     Given I am authenticated as admin
     When I add "Content-Type" header equal to "application/ld+json"
@@ -103,7 +103,7 @@ Feature: Manage comments
     }
     """
 
-  @createSchema @comment
+  @comment
   Scenario: Throw an error when user in not authenticated
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
@@ -116,8 +116,9 @@ Feature: Manage comments
     """
     Then the response status code should be 401
 
-  @createSchema @comment
+  @comment
   Scenario: Throw an error when create a comment for non existent blog post
+    Given I am authenticated as admin
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
     And I send a "POST" request to "/api/comments" with body:
