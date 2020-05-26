@@ -9,7 +9,7 @@ if [[ "dev" != ${ENVIRONMENT} ]] && [[ "test" != "${ENVIRONMENT}" ]]; then
 fi
 
 if  [[ "dev" = "${ENVIRONMENT}" ]]; then
-    printf "\n==> Create behat.yml file for test ${USER_GROUP}\n";
+    printf "\n==> Create behat.yml file for testing environment\n";
     cp -rf ${PROJECT_PATH}/behat.yml.dist ${PROJECT_PATH}/behat.yml
     printf "\n==> Change groupid to ${USER_GROUP}\n";
     groupmod --non-unique --gid ${USER_GROUP} www-data
