@@ -22,6 +22,9 @@ App\Entity\BlogPost:
   itemOperations:
     get:
       method: 'GET'
+      normalization_context:
+        groups:
+          - 'get-blog-post-with-author'
     put:
       method: 'PUT'
       security: "is_granted('ROLE_EDITOR') or (is_granted('ROLE_WRITER') and object.getAuthor() == user)"

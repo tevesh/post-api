@@ -32,7 +32,7 @@
          * @ORM\Column(type="integer")
          * @ORM\GeneratedValue(strategy="AUTO")
          *
-         * @Groups({"get"})
+         * @Groups({"get", "get-comment-with-author"})
          *
          * @var int $id
          */
