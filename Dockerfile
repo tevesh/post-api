@@ -10,6 +10,7 @@ ENV USER_ID=$CUSTOM_USER_ID \
     ENVIRONMENT="dev" \
     PROJECT_PATH=/var/www/html \
     PHP_INI=/usr/local/etc/php/php.ini-development \
+    PHP_INI_DIR=/usr/local/etc/php \
     TERM=xterm
 RUN printf "USER_ID=$CUSTOM_USER_ID\n"
 RUN printf "USER_GROUP=$CUSTOM_USER_GROUP\n"

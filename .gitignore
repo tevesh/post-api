@@ -25,3 +25,7 @@ behat.yml
 /features/fixtures
 !/features/fixtures/test-files
 ###< behat/symfony2-extension ###
+.DS_Store
+
+!public/uploads/images/.gitignore
+public/uploads/images/
